@@ -137,6 +137,11 @@ public class WatchService {
 
     /**
      * Insert data into exemploDB.
+     *     
+     * @param op  operation.
+     * @param value1  value 1 used in operation.
+     * @param value2  value 2 used in operation.
+     * @param total  total of operation.
      */
     private void insertIntoDB(String op, double value1, double value2, double total)
     {
