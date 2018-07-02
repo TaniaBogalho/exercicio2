@@ -13,6 +13,10 @@ import java.nio.file.Paths;
 import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.logging.*;
 
@@ -130,6 +134,36 @@ public class WatchService {
     }
 
 
+
+    /**
+     * Insert data into exemploDB.
+     */
+    private void insertIntoDB(String op, double value1, double value2, double total)
+    {
+        Connection con = null;
+        Statement stmt = null;
+        String sql = "INSERT INTO info (op, value1, value2, total) VALUES ('" + op + "', " + value1 + ", " + value2 + ", " + total + ");";
+        String url = "jdbc:postgresql://localhost/postgres";
+
+        try
+        {
+            con = DriverManager.getConnection(url, "postgres", "123");
+
+            con.setAutoCommit(false);
+
+            stmt = con.createStatement();
+
+            stmt.executeUpdate(sql);
+
+            stmt.close();
+            con.commit();
+            con.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Move the file from input folder to output folder.
      *
@@ -167,7 +201,7 @@ public class WatchService {
 
 
             JSONObject objInput;
-            //JSONObject objOutput;
+            JSONObject objOutput;
 
             try {
 
@@ -211,7 +245,10 @@ public class WatchService {
                                 writeInInvalidFile(event.context().toString(), objInput);
                             } else {
                                 //Send the read JSONObject objInput into JSONService of Ex. Part 1.
-                                jsonService.receiveJSON(objInput);
+                                objOutput = jsonService.receiveJSON(objInput);
+
+                                //Insert values into DB
+                                insertIntoDB(objOutput.getString("op"), objOutput.getDouble("value1"), objOutput.getDouble("value2"), objOutput.getDouble("Total"));
 
                                 //System.out.println(objOutput.toString());
 
