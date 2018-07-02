@@ -83,11 +83,10 @@ public class Dados {
      * Returns a JSONObject JSONObject with operation, value1, value2, total of operation and date time of operation
      *
      * @return      JSONObject with operation, value1, value2, total of operation and date time of operation
-     * @see         JSONObject
      */
 
 
-    public JSONObject calcula() throws JSONException {
+    public JSONObject calcula() {
 
         JSONObject jsonOperacao = new JSONObject();
 
@@ -117,11 +116,16 @@ public class Dados {
 
         }
 
-        jsonOperacao.put("op", this.op);
-        jsonOperacao.put("value1", this.value1);
-        jsonOperacao.put("value2", this.value2);
-        jsonOperacao.put("Total", this.total);
-        jsonOperacao.put("Data", sdf.format(data));
+        try {
+            jsonOperacao.put("op", this.op);
+            jsonOperacao.put("value1", this.value1);
+            jsonOperacao.put("value2", this.value2);
+            jsonOperacao.put("Total", this.total);
+            jsonOperacao.put("Data", sdf.format(data));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         return jsonOperacao;
     }
