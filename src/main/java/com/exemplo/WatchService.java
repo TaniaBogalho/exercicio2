@@ -137,18 +137,13 @@ public class WatchService {
 
     /**
      * Insert data into exemploDB.
-     *     
-     * @param op  operation.
-     * @param value1  value 1 used in operation.
-     * @param value2  value 2 used in operation.
-     * @param total  total of operation.
      */
     private void insertIntoDB(String op, double value1, double value2, double total)
     {
         Connection con = null;
         Statement stmt = null;
         String sql = "INSERT INTO info (op, value1, value2, total) VALUES ('" + op + "', " + value1 + ", " + value2 + ", " + total + ");";
-        String url = "jdbc:postgresql://localhost/postgres";
+        String url = "jdbc:postgresql://localhost/exercicio2db";
 
         try
         {
