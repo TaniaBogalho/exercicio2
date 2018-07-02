@@ -25,6 +25,8 @@ public class Dados {
 
     /**
      * Gets the operation.
+     *
+     * @return String
      */
     public String getOp() {
         return op;
@@ -43,6 +45,8 @@ public class Dados {
 
     /**
      * Gets the value1.
+     *
+     * @return double
      */
     public double getValue1() {
         return value1;
@@ -61,6 +65,8 @@ public class Dados {
 
     /**
      * Gets the value2.
+     *
+     * @return double
      */
     public double getValue2() {
         return value2;
