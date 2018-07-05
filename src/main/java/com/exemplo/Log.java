@@ -1,9 +1,10 @@
 package com.exemplo;
 
 import java.io.IOException;
-import java.util.logging.*;
-
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class Log {
 
@@ -11,14 +12,14 @@ public class Log {
 
     private static Log INSTANCE = null;
 
-
+    private static Logger LOGGER = Logger.getLogger(WatchService.class.getName());
 
     private Log() {
         try {
             //FileWriter fw = new FileWriter(logFile);
             //PrintWriter writer = new PrintWriter(fw, true);
 
-            FileHandler fileHandler = new FileHandler("/home/tania/logger.log", true);
+            FileHandler fileHandler = new FileHandler(logFile, true);
 
             LOGGER.addHandler(fileHandler);
             SimpleFormatter formatter = new SimpleFormatter();
