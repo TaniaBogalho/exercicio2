@@ -23,7 +23,7 @@ import java.util.logging.*;
 @Path("")
 public class WatchService {
 
-    private Log logger = Log.getInstance();
+    //private Log logger = Log.getInstance();
 
     //private static Logger LOGGER = Logger.getLogger(WatchService.class.getName());
 
@@ -189,7 +189,7 @@ public class WatchService {
             e.printStackTrace();
             //LOGGER.log( Level.SEVERE, e.toString(), e );
 
-            logger.logError(e.toString());
+            Log.getInstance().logError(e.toString());
         }
     }
 
@@ -206,7 +206,7 @@ public class WatchService {
         //Write in .log file
         //LOGGER.info("START PROCESS\n");
 
-        logger.logInfo("START PROCESS\n");
+        Log.getInstance().logInfo("START WATCH SERVICE PROCESS\n");
 
         //thread = new Thread(() -> {
 
@@ -278,13 +278,13 @@ public class WatchService {
                         //Write in .log file
                         //LOGGER.log(Level.SEVERE, "Invalid watch key, close the watch service.\n");
 
-                        logger.logError("Invalid watch key, close the watch service.\n");
+                        Log.getInstance().logError("Invalid watch key, close the watch service.\n");
                     }
 
                     //Write in .log file
                     //LOGGER.info(" END PROCESS\n\n\n");
 
-                    logger.logInfo(" END PROCESS\n\n\n");
+                    Log.getInstance().logInfo(" END WATCH SERVICE PROCESS\n\n\n");
 
                     Thread.sleep(500);
 
@@ -297,7 +297,7 @@ public class WatchService {
                 e.printStackTrace();
                 //LOGGER.log(Level.SEVERE, e.toString(), e);
 
-                logger.logError(e.toString());
+                Log.getInstance().logError(e.toString());
             }
             catch (InterruptedException e)
             {
@@ -346,20 +346,7 @@ public class WatchService {
         }
     }
 
-/*
-    /**
-     * Cleans the handlers of logger. Cleans .log.lck, .log0...x files.
-     *
-     * @param logger  the used logger
-     */
-    /*private static void clean(Logger logger) {
-        if (logger != null) {
-            for (Handler handler : logger.getHandlers()) {
-                handler.close();
-            }
-            clean(logger.getParent());
-        }
-    }*/
+
 
 
 }
