@@ -1,6 +1,7 @@
 package com.exemplo.rest;
 
 import com.exemplo.Dados;
+import com.exemplo.Log;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -19,12 +20,13 @@ import java.util.logging.SimpleFormatter;
 @Path("/json")
 public class JSONService {
 
-	private static Logger LOGGER = Logger.getLogger(JSONService.class.getName());
+	//private static Logger LOGGER = Logger.getLogger(JSONService.class.getName());
 
+	/*
 	/**
 	 * Prepare the Log File. Create FileHandler, and use it in Logger.
 	 */
-	private void prepareLogFile()
+	/*private void prepareLogFile()
 	{
 		try {
 
@@ -37,7 +39,7 @@ public class JSONService {
 			e.printStackTrace();
 		}
 
-	}
+	}*/
 
 
 	/**
@@ -54,10 +56,12 @@ public class JSONService {
 
 		JSONObject jsonObjectOutput = new JSONObject();
 
-		prepareLogFile();
+		//prepareLogFile();
 
 
-		LOGGER.info("START PROCESS\n");
+		//LOGGER.info("START PROCESS\n");
+
+		Log.getInstance().logInfo("START JSON SERVICE PROCESS\n");
 
 		Dados dados = new Dados();
 
@@ -74,14 +78,18 @@ public class JSONService {
 		}
 
 
-		LOGGER.info("READING THE DATA \nOP: " + dados.getOp() + "  Value1: " + dados.getValue1() + "  Value2: " +
+		//LOGGER.info("READING THE DATA \nOP: " + dados.getOp() + "  Value1: " + dados.getValue1() + "  Value2: " + dasdos.getValue2() + "\n");
+
+		Log.getInstance().logInfo("READING THE DATA \nOP: " + dados.getOp() + "  Value1: " + dados.getValue1() + "  Value2: " +
 				dados.getValue2() + "\n");
 
 
-		LOGGER.info(" END PROCESS\n\n\n");
+		//LOGGER.info(" END PROCESS\n\n\n");
+
+		Log.getInstance().logInfo(" END JSON SERVICE PROCESS\n\n\n");
 
 
-		clean(LOGGER);
+		//clean(LOGGER);
 
 
 		return jsonObjectOutput;
