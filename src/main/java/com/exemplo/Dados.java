@@ -136,4 +136,16 @@ public class Dados {
         return jsonOperacao;
     }
 
+    @Override
+    public String toString()
+    {
+        StringBuilder ret = new StringBuilder();
+
+        ret.append("OP: ").append(this.op).append("\n");
+        ret.append("Value1: ").append(this.value1).append("\n");
+        ret.append("Value2: ").append(this.value2).append("\n");
+        ret.append("Total: ").append(this.total).append("\n");
+
+        return ret.toString();
+    }
 }
