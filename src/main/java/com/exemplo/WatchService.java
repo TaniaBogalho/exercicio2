@@ -23,8 +23,9 @@ import java.util.logging.*;
 @Path("")
 public class WatchService {
 
+    private Log logger = Log.getInstance();
 
-    private static Logger LOGGER = Logger.getLogger(WatchService.class.getName());
+    //private static Logger LOGGER = Logger.getLogger(WatchService.class.getName());
 
     private static CSVReader cvs = new CSVReader();
 
@@ -40,7 +41,7 @@ public class WatchService {
 
     private FileWriter fileWriter;
 
-    private FileHandler fileHandler;
+    //private FileHandler fileHandler;
 
     //private Thread thread;
 
@@ -49,7 +50,7 @@ public class WatchService {
 
         new WatchService().readCSVFile();
 
-        clean(LOGGER);
+        //clean(LOGGER);
     }
 
     /**
@@ -63,11 +64,12 @@ public class WatchService {
         ColumnNamesList = "filename, op, value1, value2";
     }
 
-
+/*
     /**
      * Prepare the Log File. Create FileHandler, and use it in Logger.
      */
-    private void prepareLogFile()
+/*
+    /*private void prepareLogFile()
     {
         try {
 
@@ -81,7 +83,7 @@ public class WatchService {
             e.printStackTrace();
         }
 
-    }
+    }*/
 
     /**
      * Write into invalid file the processed filename and the JSONObject with operation, value1 and value2.
@@ -137,11 +139,16 @@ public class WatchService {
 
     /**
      * Insert data into exemploDB.
+     *
+     * @param op  operation used.
+     * @param value1  value1 used.
+     * @param value2  value2 used.
+     * @param total  total of operation used.
      */
     private void insertIntoDB(String op, double value1, double value2, double total)
     {
-        Connection con = null;
-        Statement stmt = null;
+        Connection con;
+        Statement stmt;
         String sql = "INSERT INTO info (op, value1, value2, total) VALUES ('" + op + "', " + value1 + ", " + value2 + ", " + total + ");";
         String url = "jdbc:postgresql://localhost/exercicio2db";
 
@@ -180,7 +187,9 @@ public class WatchService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            LOGGER.log( Level.SEVERE, e.toString(), e );
+            //LOGGER.log( Level.SEVERE, e.toString(), e );
+
+            logger.logError(e.toString());
         }
     }
 
@@ -191,11 +200,13 @@ public class WatchService {
 
         prepareInvalidFile();
 
-        prepareLogFile();
+        //prepareLogFile();
 
 
         //Write in .log file
-        LOGGER.info("START PROCESS\n");
+        //LOGGER.info("START PROCESS\n");
+
+        logger.logInfo("START PROCESS\n");
 
         //thread = new Thread(() -> {
 
@@ -265,22 +276,28 @@ public class WatchService {
 
                     if (!validKey) {
                         //Write in .log file
-                        LOGGER.log(Level.SEVERE, "Invalid watch key, close the watch service.\n");
+                        //LOGGER.log(Level.SEVERE, "Invalid watch key, close the watch service.\n");
+
+                        logger.logError("Invalid watch key, close the watch service.\n");
                     }
 
                     //Write in .log file
-                    LOGGER.info(" END PROCESS\n\n\n");
+                    //LOGGER.info(" END PROCESS\n\n\n");
+
+                    logger.logInfo(" END PROCESS\n\n\n");
 
                     Thread.sleep(500);
 
-                    clean(LOGGER);
+                    //clean(LOGGER);
                 }
 
             }
             catch (IOException | JSONException e)
             {
                 e.printStackTrace();
-                LOGGER.log(Level.SEVERE, e.toString(), e);
+                //LOGGER.log(Level.SEVERE, e.toString(), e);
+
+                logger.logError(e.toString());
             }
             catch (InterruptedException e)
             {
@@ -329,20 +346,20 @@ public class WatchService {
         }
     }
 
-
+/*
     /**
      * Cleans the handlers of logger. Cleans .log.lck, .log0...x files.
      *
      * @param logger  the used logger
      */
-    private static void clean(Logger logger) {
+    /*private static void clean(Logger logger) {
         if (logger != null) {
             for (Handler handler : logger.getHandlers()) {
                 handler.close();
             }
             clean(logger.getParent());
         }
-    }
+    }*/
 
 
 }
