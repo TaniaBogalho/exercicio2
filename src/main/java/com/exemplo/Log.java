@@ -1,20 +1,20 @@
 package com.exemplo;
 
 import java.io.IOException;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import java.util.logging.*;
 
 public class Log {
+
+    private String logFile = "/home/tania/logger.log";
 
     private static Log INSTANCE = null;
 
     private static Logger LOGGER = Logger.getLogger(Log.class.getName());
 
+
+
     private Log() {
         try {
-            String logFile = "/home/tania/logger.log";
             FileHandler fileHandler = new FileHandler(logFile, true);
 
             LOGGER.addHandler(fileHandler);
@@ -33,11 +33,16 @@ public class Log {
         return INSTANCE;
     }
 
-    void logError(String error) {
+    public void logError(String error) {
+
         LOGGER.log(Level.SEVERE, error, error);
     }
 
+
     public void logInfo(String info) {
+
         LOGGER.info(info);
     }
+
+
 }
