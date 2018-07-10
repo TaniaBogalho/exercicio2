@@ -2,7 +2,6 @@ package com.exemplo;
 
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
-
 import javax.ws.rs.Produces;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -16,12 +15,8 @@ public class Dados {
     private double value1;
     private double value2;
     private double total;
-
     private static final DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-    Date data = new Date();
-
-
+    private Date data = new Date();
 
     /**
      * Gets the operation.
@@ -83,8 +78,6 @@ public class Dados {
     }
 
 
-
-
     /**
      * Returns a JSONObject JSONObject with operation, value1, value2, total of operation and date time of operation
      *
@@ -132,20 +125,12 @@ public class Dados {
             e.printStackTrace();
         }
 
-
         return jsonOperacao;
     }
 
     @Override
     public String toString()
     {
-        StringBuilder ret = new StringBuilder();
-
-        ret.append("OP: ").append(this.op).append("\n");
-        ret.append("Value1: ").append(this.value1).append("\n");
-        ret.append("Value2: ").append(this.value2).append("\n");
-        ret.append("Total: ").append(this.total).append("\n");
-
-        return ret.toString();
+        return "OP: " + this.op + "\n" + "Value1: " + this.value1 + "\n" + "Value2: " + this.value2 + "\n" + " Total: " + this.total + "\n";
     }
 }
