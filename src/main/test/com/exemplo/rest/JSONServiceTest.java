@@ -16,14 +16,12 @@ class JSONServiceTest {
 
     private Date data = new Date();
 
-    private Calendar calendar;
-
 
     @Test
     void testReceiveJSON ()
     {
 
-        calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTime(data);
 
         int year = calendar.get(Calendar.YEAR);
