@@ -5,16 +5,15 @@ import java.util.logging.*;
 
 public class Log {
 
-    private String logFile = "/home/tania/logger.log";
-
     private static Log INSTANCE = null;
 
-    private static Logger LOGGER = Logger.getLogger(Log.class.getName());
+    private Logger LOGGER = Logger.getLogger(Log.class.getName());
 
 
 
     private Log() {
         try {
+            String logFile = "/home/tania/logger.log";
             FileHandler fileHandler = new FileHandler(logFile, true);
 
             LOGGER.addHandler(fileHandler);
@@ -33,7 +32,7 @@ public class Log {
         return INSTANCE;
     }
 
-    public void logError(String error) {
+    void logError(String error) {
 
         LOGGER.log(Level.SEVERE, error, error);
     }
