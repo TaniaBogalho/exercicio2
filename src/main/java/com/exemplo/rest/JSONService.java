@@ -10,37 +10,10 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.io.IOException;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 
 @Path("/json")
 public class JSONService {
-
-	//private static Logger LOGGER = Logger.getLogger(JSONService.class.getName());
-
-	/*
-	/**
-	 * Prepare the Log File. Create FileHandler, and use it in Logger.
-	 */
-	/*private void prepareLogFile()
-	{
-		try {
-
-			FileHandler fileHandler = new FileHandler("/home/tania/logger.log", true);
-			LOGGER.addHandler(fileHandler);
-			SimpleFormatter formatter = new SimpleFormatter();
-			fileHandler.setFormatter(formatter);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}*/
-
 
 	/**
 	 * Returns a JSONObject with operation, value1, value2, total of operation and date time of operation
@@ -56,15 +29,9 @@ public class JSONService {
 
 		JSONObject jsonObjectOutput = new JSONObject();
 
-		//prepareLogFile();
-
-
-		//LOGGER.info("START PROCESS\n");
-
 		Log.getInstance().logInfo("START JSON SERVICE PROCESS\n");
 
 		Dados dados = new Dados();
-
 
 		try {
 			dados.setOp(inputJsonObj.getString("op"));
@@ -77,40 +44,12 @@ public class JSONService {
 			e.printStackTrace();
 		}
 
-
-		//LOGGER.info("READING THE DATA \nOP: " + dados.getOp() + "  Value1: " + dados.getValue1() + "  Value2: " + dasdos.getValue2() + "\n");
-
 		Log.getInstance().logInfo("READING THE DATA \nOP: " + dados.getOp() + "  Value1: " + dados.getValue1() + "  Value2: " +
 				dados.getValue2() + "\n");
 
-
-		//LOGGER.info(" END PROCESS\n\n\n");
-
 		Log.getInstance().logInfo(" END JSON SERVICE PROCESS\n\n\n");
 
-
-		//clean(LOGGER);
-
-
 		return jsonObjectOutput;
-
-	}
-
-
-
-
-	/**
-	 * Cleans the handlers of logger.
-	 *
-	 * @param logger  the used logger
-	 */
-	private void clean(Logger logger) {
-		if (logger != null) {
-			for (Handler handler : logger.getHandlers()) {
-				handler.close();
-			}
-			clean(logger.getParent());
-		}
 	}
 
 }
