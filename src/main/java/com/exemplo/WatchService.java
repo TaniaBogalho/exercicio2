@@ -3,8 +3,6 @@ package com.exemplo;
 import com.exemplo.rest.JSONService;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
-
-import javax.ws.rs.Path;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,39 +16,21 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-import java.util.logging.*;
 
-@Path("")
 public class WatchService {
 
-    //private Log logger = Log.getInstance();
-
-    //private static Logger LOGGER = Logger.getLogger(WatchService.class.getName());
-
     private static CSVReader cvs = new CSVReader();
-
     private JSONService jsonService = new JSONService();
-
     private File invalid_file = null;
-
     private StringBuilder builder;
-
     private String ColumnNamesList = "";
-
     private java.nio.file.Path path = Paths.get("/home/tania/input/");
-
     private FileWriter fileWriter;
-
-    //private FileHandler fileHandler;
-
-    //private Thread thread;
-
 
     public static void main(String [] args) {
 
         new WatchService().readCSVFile();
 
-        //clean(LOGGER);
     }
 
     /**
@@ -64,26 +44,7 @@ public class WatchService {
         ColumnNamesList = "filename, op, value1, value2";
     }
 
-/*
-    /**
-     * Prepare the Log File. Create FileHandler, and use it in Logger.
-     */
-/*
-    /*private void prepareLogFile()
-    {
-        try {
 
-            fileHandler = new FileHandler("/home/tania/logger.log", true);
-
-            LOGGER.addHandler(fileHandler);
-            SimpleFormatter formatter = new SimpleFormatter();
-            fileHandler.setFormatter(formatter);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }*/
 
     /**
      * Write into invalid file the processed filename and the JSONObject with operation, value1 and value2.
@@ -193,6 +154,7 @@ public class WatchService {
         }
     }
 
+
     /**
      * Function to start WatchService in specific folder and processed the created files.
      */
@@ -200,12 +162,7 @@ public class WatchService {
 
         prepareInvalidFile();
 
-        //prepareLogFile();
-
-
         //Write in .log file
-        //LOGGER.info("START PROCESS\n");
-
         Log.getInstance().logInfo("START WATCH SERVICE PROCESS\n");
 
         //thread = new Thread(() -> {
@@ -226,9 +183,7 @@ public class WatchService {
 
                 while (true)  //should have a sleep
                 {
-
                     fileWriter = new FileWriter(invalid_file, true);
-
 
                     try {
                         // listen to events
@@ -236,8 +191,6 @@ public class WatchService {
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
-
-
 
                     // get list of events as they occur
                     List<WatchEvent<?>> events = watchKey.pollEvents();
@@ -275,15 +228,12 @@ public class WatchService {
                     boolean validKey = watchKey.reset();
 
                     if (!validKey) {
-                        //Write in .log file
-                        //LOGGER.log(Level.SEVERE, "Invalid watch key, close the watch service.\n");
 
+                        //Write in .log file
                         Log.getInstance().logError("Invalid watch key, close the watch service.\n");
                     }
 
                     //Write in .log file
-                    //LOGGER.info(" END PROCESS\n\n\n");
-
                     Log.getInstance().logInfo(" END WATCH SERVICE PROCESS\n\n\n");
 
                     Thread.sleep(500);
@@ -295,8 +245,6 @@ public class WatchService {
             catch (IOException | JSONException e)
             {
                 e.printStackTrace();
-                //LOGGER.log(Level.SEVERE, e.toString(), e);
-
                 Log.getInstance().logError(e.toString());
             }
             catch (InterruptedException e)
