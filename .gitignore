@@ -1,0 +1,8 @@
+target/
+.css/
+.idea/
+.img/
+com/
+com.exemplo/
+com.exemplo.rest/
+index-files/
