@@ -5,6 +5,8 @@ import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 
 class WatchServiceTest {
@@ -13,6 +15,8 @@ class WatchServiceTest {
     @Test
     void testReadCSVFile() {
 
+        final CountDownLatch serviceInvoked = new CountDownLatch(1);
+
         WatchService watchService = new WatchService();
 
         Thread watchServicethread = new Thread(watchService::readCSVFile);
@@ -20,44 +24,32 @@ class WatchServiceTest {
         watchServicethread.start();
 
 
-        try {
+        String file = "test_file2.csv";
 
-            Thread.sleep(1000);
+        String sourcePath = "/home/tania/" + file;
+        File source = new File(sourcePath);
+
+        String destPath = "/home/tania/input/" + file;
+        File dest = new File(destPath);
+
+
+        try {
+            FileUtils.copyFile(source, dest);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //serviceInvoked.countDown();
+
+        try {
+            //serviceInvoked.await();
+            serviceInvoked.await(500, TimeUnit.MILLISECONDS);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-
-        Thread createFilethread = new Thread(() ->
-        {
-            String sourcePath = "/home/tania/test_file2.csv";
-            File source = new File(sourcePath);
-
-            String destPath = "/home/tania/input/test_file2.csv";
-            File dest = new File(destPath);
-
-
-            try {
-                FileUtils.copyFile(source, dest);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
-
-        createFilethread.start();
-
-
-        /*try {
-
-            Thread.sleep(1000);
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-
-
     }
+
 }
