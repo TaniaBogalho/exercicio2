@@ -24,13 +24,29 @@ public class WatchService {
     private File invalid_file = null;
     private StringBuilder builder;
     private String ColumnNamesList = "";
-    private java.nio.file.Path path = Paths.get("/home/tania/input/");
     private FileWriter fileWriter;
+
+    private WatchKey watchKey;
+    private java.nio.file.WatchService watcher;
 
     public static void main(String [] args) {
 
         new WatchService().readCSVFile();
 
+    }
+
+    public WatchService() {
+
+        try {
+            //Create a WatchService in folder that we intend to monitor
+            java.nio.file.Path path = Paths.get("/home/tania/input/");
+            watcher = path.getFileSystem().newWatchService();
+
+            //Associate watch service at the directory to listen to the event types
+            watchKey = path.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
+        } catch (IOException e) {
+            // TODO: deal with this
+        }
     }
 
     /**
@@ -99,7 +115,7 @@ public class WatchService {
 
 
     /**
-     * Insert data into exemploDB.
+     * Insert data into exemploDB data base.
      *
      * @param op  operation used.
      * @param value1  value1 used.
@@ -173,15 +189,7 @@ public class WatchService {
 
             try {
 
-                //Create a WatchService in folder that we intend to monitor
-
-                java.nio.file.WatchService watcher = path.getFileSystem().newWatchService();
-
-                //Associate watch service at the directory to listen to the event types
-                WatchKey watchKey = path.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
-
-
-                while (true)  //should have a sleep
+                while (true)
                 {
                     fileWriter = new FileWriter(invalid_file, true);
 
@@ -200,6 +208,7 @@ public class WatchService {
                     for (WatchEvent event : events) {
                         //check if the event refers to a new file created
                         if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE) {
+
                             //Fill the JSONObject with the function readCsvFile return (read in file)
                             objInput = cvs.readCsvFile("/home/tania/input/" + event.context().toString());
 
@@ -207,7 +216,9 @@ public class WatchService {
                             //Verify the operation read in file
                             if (!objInput.get("op").equals("sum") & !objInput.get("op").equals("avg") & !objInput.get("op").equals("mul") & !objInput.get("op").equals("div")) {
                                 writeInInvalidFile(event.context().toString(), objInput);
-                            } else {
+                            }
+                            else
+                            {
                                 //Send the read JSONObject objInput into JSONService of Ex. Part 1.
                                 objOutput = jsonService.receiveJSON(objInput);
 
@@ -215,13 +226,10 @@ public class WatchService {
                                 insertIntoDB(objOutput.getString("op"), objOutput.getDouble("value1"), objOutput.getDouble("value2"), objOutput.getDouble("Total"));
 
                                 //System.out.println(objOutput.toString());
-
-
                             }
 
                             //Move the processed file to folder output
                             moveFile(event.context().toString());
-
                         }
                     }
 
@@ -237,10 +245,7 @@ public class WatchService {
                     Log.getInstance().logInfo(" END WATCH SERVICE PROCESS\n\n\n");
 
                     Thread.sleep(500);
-
-                    //clean(LOGGER);
                 }
-
             }
             catch (IOException | JSONException e)
             {
@@ -293,8 +298,6 @@ public class WatchService {
             e.printStackTrace();
         }
     }
-
-
 
 
 }
