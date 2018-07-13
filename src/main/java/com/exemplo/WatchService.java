@@ -37,16 +37,19 @@ public class WatchService {
 
     public WatchService() {
 
+        //Create a WatchService in folder that we intend to monitor
+        java.nio.file.Path path = Paths.get("/home/tania/input/");
+
         try {
-            //Create a WatchService in folder that we intend to monitor
-            java.nio.file.Path path = Paths.get("/home/tania/input/");
             watcher = path.getFileSystem().newWatchService();
 
             //Associate watch service at the directory to listen to the event types
             watchKey = path.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
+
         } catch (IOException e) {
-            // TODO: deal with this
+            e.printStackTrace();
         }
+
     }
 
     /**
