@@ -250,14 +250,10 @@ public class WatchService {
                     Thread.sleep(500);
                 }
             }
-            catch (IOException | JSONException e)
+            catch (IOException | JSONException | InterruptedException e)
             {
                 e.printStackTrace();
                 Log.getInstance().logError(e.toString());
-            }
-            catch (InterruptedException e)
-            {
-                e.printStackTrace();
             }
         //});
 
