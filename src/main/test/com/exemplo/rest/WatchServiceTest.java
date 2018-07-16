@@ -24,6 +24,7 @@ class WatchServiceTest {
         watchServicethread.start();
 
 
+
         String file = "test_file2.csv";
 
         String sourcePath = "/home/tania/" + file;
@@ -32,9 +33,17 @@ class WatchServiceTest {
         String destPath = "/home/tania/input/" + file;
         File dest = new File(destPath);
 
+        File f = new File(destPath);
 
         try {
-            FileUtils.copyFile(source, dest);
+            //If file exists in source path, delete the file and proceed with normal process
+            if(f.exists()) {
+                f.delete();
+                FileUtils.copyFile(source, dest);
+            }
+            //If file doens't exist, proceed with normal process
+            else
+                FileUtils.copyFile(source, dest);
 
         } catch (IOException e) {
             e.printStackTrace();
