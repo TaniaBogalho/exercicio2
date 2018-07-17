@@ -184,7 +184,7 @@ public class WatchService {
         prepareInvalidFile();
 
         //Write in .log file
-        Log.getInstance().logInfo("START WATCH SERVICE PROCESS\n");
+        Log.getInstance().logInfo("\n\n\nSTART WATCH SERVICE PROCESS\n");
 
         //thread = new Thread(() -> {
 
