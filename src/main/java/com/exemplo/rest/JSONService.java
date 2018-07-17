@@ -29,7 +29,7 @@ public class JSONService {
 
 		JSONObject jsonObjectOutput = new JSONObject();
 
-		Log.getInstance().logInfo("START JSON SERVICE PROCESS\n");
+		Log.getInstance().logInfo("\n\n\nSTART JSON SERVICE PROCESS\n");
 
 		Dados dados = new Dados();
 
@@ -47,7 +47,7 @@ public class JSONService {
 		Log.getInstance().logInfo("READING THE DATA \nOP: " + dados.getOp() + "  Value1: " + dados.getValue1() + "  Value2: " +
 				dados.getValue2() + "\n");
 
-		Log.getInstance().logInfo(" END JSON SERVICE PROCESS\n\n\n");
+		Log.getInstance().logInfo(" END JSON SERVICE PROCESS\n");
 
 		return jsonObjectOutput;
 	}
