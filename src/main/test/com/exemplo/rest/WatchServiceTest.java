@@ -53,7 +53,7 @@ class WatchServiceTest {
 
         try {
             //serviceInvoked.await();
-            serviceInvoked.await(500, TimeUnit.MILLISECONDS);
+            serviceInvoked.await(2, TimeUnit.SECONDS);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
