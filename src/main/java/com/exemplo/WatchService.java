@@ -30,11 +30,13 @@ public class WatchService {
     private java.nio.file.WatchService watcher;
 
     public static void main(String [] args) {
-
         new WatchService().readCSVFile();
-
     }
 
+
+    /**
+     * Constuctor of WatchService class.
+     */
     public WatchService() {
 
         //Create a WatchService in folder that we intend to monitor
