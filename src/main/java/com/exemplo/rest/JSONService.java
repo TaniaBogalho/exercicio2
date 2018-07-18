@@ -29,7 +29,7 @@ public class JSONService {
 
 		JSONObject jsonObjectOutput = new JSONObject();
 
-		Log.getInstance().logInfo("\n\n\nSTART JSON SERVICE PROCESS\n");
+		Log.getInstance().logInfo("START JSON SERVICE PROCESS\n");
 
 		Dados dados = new Dados();
 
